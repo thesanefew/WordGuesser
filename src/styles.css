@@ -1,0 +1,255 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #121212;
+  }
+  
+  .game-container{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;       /*  vertical centring */
+  }
+  
+  .input-row,
+  .guess-row{
+    display:flex;
+    gap:6px;                      /* tighter – matches the reference grid */
+    margin:6px 0;
+    position:relative;
+  }
+  
+  .box {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #ccc;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    transition: border-color 0.2s, background-color 0.2s;
+  }
+  
+  .input {
+    background: white;
+    color: black;
+  }
+  
+  .guess {
+    background: #888;
+    color: white;
+  }
+  
+  .feedback{
+    /* anchor them just to the right of the five boxes                   */
+    position:absolute;
+    left:calc(100% + 20px);           /* 20-px breathing room */
+    top:50%;
+    transform:translateY(-50%);
+    display:flex;
+    gap:4px;
+    flex-direction:row;
+  }
+  
+  .green-box, .yellow-box {
+    width: 30px;
+    height: 30px;
+    margin: 2px 0;
+    text-align: center;
+    line-height: 30px;
+    font-weight: bold;
+    color: white;
+    border-radius: 4px;
+  }
+  
+  .green-box {
+    background-color: green;
+  }
+  
+  .yellow-box {
+    background-color: goldenrod;
+  }
+  
+  /* Shake animation */
+  .shake {
+    animation: shake 0.4s;
+    border-left: 2px solid red;
+    border-right: 2px solid red;
+  }
+  
+  @keyframes shakeRow{
+    0%,100%{ transform:translate(-50%,-50%) translateX(0); }
+    20%,60%{ transform:translate(-50%,-50%) translateX(-6px); }
+    40%,80%{ transform:translate(-50%,-50%) translateX( 6px); }
+  }
+  /* apply this animation instead of the generic .shake we had earlier */
+  .input-row.shake{ animation:shakeRow .4s; }
+  .guess-stack{
+    position:absolute;
+    bottom:calc(50% + 70px);     /* sits just above the input row */
+    left:50%; transform:translateX(-50%);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+    max-height:310px;            /* 5 rows × (50px box + 10px gap) */
+                /* prevents clipping outside area */
+  }
+  
+  .win-message {
+    color: #00FF00;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  body {
+    margin: 0;
+    font-family: sans-serif;
+    height: 100vh;
+    background: #121212;
+  }
+  
+  .game-wrapper {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .game-container{
+    position:relative;           /* so children can be absolutely placed */
+    width:100%;
+    height:100vh;                /* full viewport */
+  }
+  
+  .guess-stack{
+    position:absolute;
+  
+    /* put the *bottom* edge of the stack 31 px *above* the screen-centre:
+       25 px (½ a 50 px box) + 6 px desired gap  */
+    bottom:calc(50% + 31px);
+  
+    left:50%;
+    transform:translateX(-50%);
+  
+    display:flex;
+    flex-direction:column-reverse;   /* newest row closest to input */
+    gap:6px;                         /* same tight gap as the grid */
+    align-items:center;
+  }
+  
+  
+  .input-row{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+  }
+  .guess-row{
+    position:relative;
+    display:flex;
+    gap:6px;
+  }
+  
+  .box{
+    width:50px;
+    height:50px;
+    border:2px solid #ccc;
+    font-size:24px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-transform:uppercase;
+    transition:border-color .2s, background-color .2s;
+  }
+  
+  .input {
+    background: white;
+    color: black;
+  }
+  
+  .guess {
+    background: #888;
+    color: white;
+  }
+  
+  .feedback{
+    position:absolute;               /* take it *out* of the flow */
+    right:-70px;                     /* 50 px box + ~20 px breathing */
+    top:50%;
+    transform:translateY(-50%);
+    display:flex;
+    gap:4px;
+    flex-direction:row;
+  }
+  
+  .green-box,
+  .yellow-box{
+    width:30px;
+    height:30px;
+    line-height:30px;
+    font-weight:700;
+    color:#fff;
+    border-radius:4px;
+  }
+  
+  .green-box {
+    background-color: green;
+  }
+  
+  .yellow-box {
+    background-color: goldenrod;
+  }
+  
+  .shake{ animation:shake .4s; }
+  @keyframes shake{
+    0%,100%{ transform:translateX(0); }
+    20%,60%{ transform:translateX(-6px); }
+    40%,80%{ transform:translateX( 6px); }
+  }
+  
+
+  
+  .win-message {
+    position: absolute;
+    top: calc(50% + 20px);  /* just below the centered input row */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    font-weight: bold;
+    color: #00FF00;
+    z-index: 2;              /* ensure it's on top */
+    background: #121212;     /* blend into background if overlap occurs */
+    padding: 10px;
+    border-radius: 6px;
+  }
+  .new-game-button {
+    position: absolute;
+    top: calc(50% + 160px);  /* was 120px */
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background: #333;
+    border: 2px solid #00e600;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  
+  .new-game-button:hover {
+    background: #444;
+  }
+  
